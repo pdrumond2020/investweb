@@ -1,0 +1,39 @@
+<mat-sidenav-container>
+  
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div fxHide.gt-xs>
+        <button mat-icon-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div>
+        <a routerLink="/">
+          Invest
+        </a>
+      </div>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+        <ul fxLayout fxLayoutGap="20px" class="navigation-items">
+          <li>
+            <a routerLink="/">
+              <span class="label">Home</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/login">
+              <span class="label">Login</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/users">
+              <span class="label">Usuários</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </mat-toolbar>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
