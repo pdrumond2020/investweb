@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { Interceptor } from './app-interceptor.module';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -35,7 +36,8 @@ import { Interceptor } from './app-interceptor.module';
     MaterialModule,
     FlexLayoutModule,
     AppRouters,
-    Interceptor
+    Interceptor,
+    ToastrModule.forRoot()
   ],
   providers: [UserService, AuthService],
   bootstrap: [AppComponent]

@@ -17,7 +17,19 @@
                             class="form-control"
                             maxlength="14"
                             formControlName="document"
+                            [ngClass]="{ 'is-invalid': loginForm.controls['document'].touched && loginForm.controls['document']?.errors }"
                             />
+                        <div *ngIf="loginForm.controls['document']?.invalid && (loginForm.controls['document']?.invalid.dirty 
+                            || loginForm.controls['document']?.touched)" class="alert"> 
+
+                          <div *ngIf="loginForm.controls['document']?.errors?.['required']">
+                            Campo CPF é obrigatório.
+                          </div>
+                          <div *ngIf="loginForm.controls['document']?.errors?.['minlength']">
+                            Campo CPF deve ter pelo menos 11 caracteres.
+                          </div> 
+
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="password">Senha:</label>
@@ -28,7 +40,19 @@
                             class="form-control"
                             maxlength="8"
                             formControlName="password"
+                            [ngClass]="{ 'is-invalid': loginForm.controls['password'].touched && loginForm.controls['password']?.errors }"
                             />
+                        <div *ngIf="loginForm.controls['password']?.errors && (loginForm.controls['password']?.invalid.dirty 
+                        || loginForm.controls['password']?.touched)" class="alert"> 
+
+                          <div *ngIf="loginForm.controls['password']?.errors?.['required']">
+                            Campo senha é obrigatório.
+                          </div>
+                          <div *ngIf="loginForm.controls['password']?.errors?.['minlength']">
+                            Campo senha deve ter pelo menos 6 caracteres.
+                          </div> 
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,7 +61,8 @@
                     <button
                         class="btn btn-primary btn-lg mb-5"
                         (click)="submitForm($event)"
-                        >
+                        [disabled]="loginForm.invalid"
+                    >
                         <span>Entrar</span>
                     </button>
                 </div>

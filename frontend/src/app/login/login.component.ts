@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,7 +18,9 @@ export class LoginComponent implements OnInit {
   
 
   constructor(private formGroup: FormBuilder,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -26,7 +30,7 @@ export class LoginComponent implements OnInit {
   createForm() {
     this.loginForm = this.formGroup.group({
       document: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -35,7 +39,10 @@ export class LoginComponent implements OnInit {
       event.preventDefault();
       event.stopPropagation();
     }
-    this.authenticate();
+    
+    if (this.loginForm.valid) {
+      this.authenticate();
+    }
   }
 
   authenticate() {
@@ -48,13 +55,14 @@ export class LoginComponent implements OnInit {
         if (data){
           localStorage.setItem('user_logged', JSON.stringify(data));
           this.isAuthenticated = true;
+          this.toastr.success('Usuário autenticado!');
+          this.router.navigate(['users']);
         } else {
-          console.log('Usuário Inválido');
+          this.toastr.error('Usuário Inválido');
         }
-        console.log(data);
       },
       error: err => {
-        console.log('Usuário Inválido');
+        this.toastr.error('Usuário Inválido');
       }
     });
   }
